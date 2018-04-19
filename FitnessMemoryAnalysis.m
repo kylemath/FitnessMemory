@@ -9,6 +9,9 @@
 %path = M:\Data\FitnessMemory\Spatial Configuration Task Data 2018 04 18\
 %filename = FR100_Spatial Configuration Task.csv
 
+% Participants with VO2 Confidence 0 
+% - FR125
+% - FR116
 
 %% load the data 
 clear all
@@ -266,6 +269,22 @@ for i_sub = 1:n_subs
         task_fitness(i_sub) = i_db;
     end
 end
+
+%% remove subjects data with no vo2 max confidence
+% Participants with VO2 Confidence 0 
+% - FR125
+% - FR116
+
+remove_subs = [125, 116];
+for i_sub = 1:n_subs
+    for i_remsub = 1:length(remove_subs)
+        if subs(i_sub) == remove_subs(i_remsub)
+            task_fitness(i_sub) = NaN;
+        end
+    end
+end
+
+
 
 %% correlate fitness with 3 measures
 %intercept_out, slope_out, trials2crit
