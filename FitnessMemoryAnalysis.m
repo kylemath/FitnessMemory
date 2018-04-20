@@ -258,18 +258,19 @@ for i_item = 1:n_db_subs
 end
 
 %grab fitness info
-% vo2 max is column 95 of NUM, vo2 max percent is 96
-database_fitness = NUM(:,96);
+% vo2 max is column 94 of NUM, vo2 max percent is 95
+database_fitness = NUM(:,95);
 
 %% loop through task subjects and lookup fitness
 
 task_fitness = zeros(1,n_subs);
+
 for i_sub = 1:n_subs
     i_db = find(database_subs == subs(i_sub));
     if isempty(i_db)
         task_fitness(i_sub) = NaN;
     else
-        task_fitness(i_sub) = i_db;
+        task_fitness(i_sub) = database_fitness(i_db);
     end
 end
 
@@ -310,7 +311,6 @@ subplot(1,3,1);
     plot(fitness,yfit,'r-.');
     xlabel('VO2Max %');
     ylabel('LearningSlope');
-    xlim([0 100]);
     [r, p] = corr(fitness',slope');
     title(['Slope correlation = ' num2str(round(r,4)) '. pvalue = ' num2str(round(p,4))]);
 
@@ -323,7 +323,6 @@ subplot(1,3,2);
     title('Intercept');
     xlabel('VO2Max %');
     ylabel('LearningIntercept');
-    xlim([0 100]);
    [r, p] = corr(fitness',intercept');
     title(['Intercept correlation = ' num2str(round(r,4)) '. pvalue = ' num2str(round(p,4))]);
 
@@ -336,7 +335,6 @@ subplot(1,3,3);
     title('TTC');
     xlabel('VO2Max %');
     ylabel('LearningTTC');
-    xlim([0 100]);
    [r, p] = corr(fitness',TTC');
     title(['TTC correlation = ' num2str(round(r,4)) '. pvalue = ' num2str(round(p,4))]);
 
