@@ -20,6 +20,10 @@ clc
 
 %path where the data is:
 main_path = 'M:\Data\FitnessMemory\Spatial Configuration Task Data 2018 04 18\';
+database_path = 'M:\Data\FitnessMemory\';
+database_filename = 'FiRe_DemographicsDataEntry_2018_04_20.xls'; %update with latest filename
+remove_subs = [125, 116]; %remove due to low Vo2 max confidence
+
 filenames = ls(main_path); %get list of all the files
 filenames(1:2,:) = []; %remove dots in first two spaces
 
@@ -243,8 +247,7 @@ figure;
     
     
 %% load in xls file
-database_path = 'M:\Data\FitnessMemory\';
-[NUM,TXT,RAW]= xlsread([database_path 'FiRe_DemographicsDataEntry_2018_04_10.xls']);
+[NUM,TXT,RAW]= xlsread([database_path database_filename]);
 
 %grab subject numbers (not the same number)
 sub_names = TXT(2:end,1);
@@ -275,7 +278,6 @@ end
 % - FR125
 % - FR116
 
-remove_subs = [125, 116];
 for i_sub = 1:n_subs
     for i_remsub = 1:length(remove_subs)
         if subs(i_sub) == remove_subs(i_remsub)
