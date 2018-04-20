@@ -259,6 +259,7 @@ end
 
 %grab fitness info
 % vo2 max is column 94 of NUM, vo2 max percent is 95
+%95 and 96 in the first spreadsheet from 4-10
 database_fitness = NUM(:,95);
 
 %% loop through task subjects and lookup fitness
